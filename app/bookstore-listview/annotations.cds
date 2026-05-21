@@ -1,4 +1,6 @@
 using BookstoreService as service from '../../srv/service';
+using from '@sap/cds/common';
+
 annotate service.Books with @(
     UI.FieldGroup #GeneratedGroup : {
         $Type : 'UI.FieldGroupType',
@@ -20,8 +22,23 @@ annotate service.Books with @(
             },
             {
                 $Type : 'UI.DataField',
+                Value : currency_code,
+                Label : 'Currency',
+            },
+            {
+                $Type : 'UI.DataField',
                 Value : status_code,
                 Criticality : status.criticality,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : genre_code,
+                Label : 'Genre',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : stock,
+                Label : 'Stock',
             },
         ],
     },
@@ -61,8 +78,8 @@ annotate service.Books with @(
         },
         {
             $Type : 'UI.DataField',
+            Value : genre_code,
             Label : 'Genre',
-            Value : genre,
         },
         {
             $Type : 'UI.DataField',
@@ -88,6 +105,16 @@ annotate service.Books with @(
             $Type : 'UI.DataField',
             Value : createdAt,
         },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'BookstoreService.addStock',
+            Label : 'Add Stock',
+        },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'BookstoreService.EntityContainer/discount',
+            Label : '10% Discount',
+        },
     ],
     UI.SelectionFields : [
         status_code,
@@ -101,7 +128,7 @@ annotate service.Books with @(
         },
         Description : {
             $Type : 'UI.DataField',
-            Value : genre,
+            Value : genre_code,
         },
         TypeImageUrl : 'sap-icon://course-book',
     },
@@ -126,6 +153,23 @@ annotate service.Books with @(
             },
         ],
     },
+    UI.Identification : [
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'BookstoreService.addStock',
+            Label : 'Add Stock',
+        },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'BookstoreService.changePublishedDate',
+            Label : 'Change Published Date',
+        },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'BookstoreService.changeStatus',
+            Label : 'Change Status',
+        },
+    ],
 );
 
 annotate service.Books with {
@@ -195,4 +239,31 @@ annotate service.BookStatus with {
         Common.Text : displayText,
         Common.Text.@UI.TextArrangement : #TextOnly,
 )};
+
+annotate service.Books with {
+    currency @Common.ValueListWithFixedValues : true
+};
+
+annotate service.Books with {
+    genre @(
+        Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'GenresVH',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : genre_code,
+                    ValueListProperty : 'code',
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true,
+)};
+
+annotate service.GenresVH with {
+    code @(
+        Common.Text : description,
+        Common.Text.@UI.TextArrangement : #TextLast,
+    )
+};
 

@@ -1,7 +1,7 @@
 {
   "_version": "1.84.0",
   "sap.app": {
-    "id": "bookstorelistview",
+    "id": "authorslistview",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -12,8 +12,8 @@
     "resources": "resources.json",
     "sourceTemplate": {
       "id": "@sap/generator-fiori:lrop",
-      "version": "1.23.0",
-      "toolsId": "596329d0-40a1-4771-936e-f0442d9359cc"
+      "version": "1.24.0",
+      "toolsId": "5f05fb2d-77f0-42d1-a635-ac1188f9148c"
     },
     "dataSources": {
       "mainService": {
@@ -45,7 +45,7 @@
   "sap.ui5": {
     "flexEnabled": true,
     "dependencies": {
-      "minUI5Version": "1.147.2",
+      "minUI5Version": "1.148.0",
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
@@ -60,7 +60,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "bookstorelistview.i18n.i18n"
+          "bundleName": "authorslistview.i18n.i18n"
         }
       },
       "": {
@@ -85,38 +85,35 @@
       "routes": [
         {
           "pattern": ":?query:",
-          "name": "BooksList",
-          "target": "BooksList"
+          "name": "AuthorsList",
+          "target": "AuthorsList"
         },
         {
-          "pattern": "Books({key}):?query:",
-          "name": "BooksObjectPage",
-          "target": "BooksObjectPage"
+          "pattern": "Authors({key}):?query:",
+          "name": "AuthorsObjectPage",
+          "target": "AuthorsObjectPage"
         }
       ],
       "targets": {
-        "BooksList": {
+        "AuthorsList": {
           "type": "Component",
-          "id": "BooksList",
+          "id": "AuthorsList",
           "name": "sap.fe.templates.ListReport",
           "options": {
             "settings": {
-              "contextPath": "/Books",
+              "contextPath": "/Authors",
               "variantManagement": "Page",
               "navigation": {
-                "Books": {
+                "Authors": {
                   "detail": {
-                    "route": "BooksObjectPage"
+                    "route": "AuthorsObjectPage"
                   }
                 }
               },
               "controlConfiguration": {
                 "@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
-                    "type": "ResponsiveTable",
-                    "quickVariantSelection": {
-                      "showCounts": true
-                    }
+                    "type": "ResponsiveTable"
                   }
                 }
               },
@@ -124,15 +121,14 @@
             }
           }
         },
-        "BooksObjectPage": {
+        "AuthorsObjectPage": {
           "type": "Component",
-          "id": "BooksObjectPage",
+          "id": "AuthorsObjectPage",
           "name": "sap.fe.templates.ObjectPage",
           "options": {
             "settings": {
-              "editableHeaderContent": true,
-              "contextPath": "/Books",
-              "sectionLayout": "Page"
+              "editableHeaderContent": false,
+              "contextPath": "/Authors"
             }
           }
         }

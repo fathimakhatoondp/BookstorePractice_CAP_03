@@ -1,22 +1,54 @@
 {
   "name": "Bookstore",
   "version": "1.0.0",
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "url": "db.sqlite"
+        },
+        "schema-evolution": "auto"
+      },
+      "auth": {
+        "kind": "mocked",
+        "users":{
+          "fathima":{
+            "password": "fathima",
+            "roles": ["admin", "user-with-action-permissions"]
+          },
+          "rahath":{
+            "password": "rahath"
+          }
+        }
+      }
+
+    }
+  },
   "dependencies": {
-    "@sap/cds": "^9"
+    "@cap-js/attachments": "^3.12.1",
+    "@sap/cds": "^9",
+    "@sap/cds-common-content": "^3.2.0"
   },
   "devDependencies": {
+    "@cap-js/cds-typer": ">=0.1",
     "@cap-js/sqlite": "^2",
     "cds-plugin-ui5": "^0.13.0"
   },
   "scripts": {
     "start": "cds-serve",
-    "watch-bookstore-listview": "cds watch --open bookstorelistview/index.html?sap-ui-xx-viewCache=false --livereload false"
+    "watch-bookstore-listview": "cds watch --open bookstorelistview/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-authors-listview": "cds watch --open authorslistview/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "private": true,
   "workspaces": [
     "app/*"
   ],
   "sapux": [
-    "app/bookstore-listview"
-  ]
+    "app/bookstore-listview",
+    "app/authors-listview"
+  ],
+  "imports": {
+    "#cds-models/*": "./@cds-models/*/index.js"
+  }
 }

@@ -1,0 +1,32 @@
+GET http://localhost:4004/odata/v4/bookstore/$metadata
+###
+GET http://localhost:4004/odata/v4/bookstore/Chapters
+###
+GET http://localhost:4004/odata/v4/bookstore/Books
+Authorization: Basic ZmF0aGltYTpmYXRoaW1h
+
+
+
+###
+POST http://localhost:4004/odata/v4/bookstore/Books
+Authorization: Basic ZmF0aGltYTpmYXRoaW1h
+Content-Type: application/json      
+
+{
+    "ID": "c92dfd60-8831-4c0d-b88f-19e0fd4e4df9",
+    "title": "Family Tales",
+    "genre_code": "Family",
+    "publishedAt": "2024-01-11",
+    "pages": 120,
+    "price": 80.95,
+    "currency_code": "INR",
+    "stock": 50
+}
+
+###
+GET http://localhost:4004/odata/v4/bookstore/Books?$count=true
+Authorization: Basic ZmF0aGltYTpmYXRoaW1h
+
+###
+GET http://localhost:4004/odata/v4/bookstore/Books?$filter=IsActiveEntity eq false
+Authorization: Basic ZmF0aGltYTpmYXRoaW1h
